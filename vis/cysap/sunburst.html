@@ -1,0 +1,165 @@
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Sunburst with Text</title>
+    <script type="text/javascript" src="d3.v2.js"></script>
+    <style type="text/css">
+svg {
+  font: 12px arial;
+}
+
+.Th{
+ fill: #2CA25F
+}
+.Te{
+ fill: #FFBB78
+}
+.Ma{
+ fill: #AEC7E8
+}
+.In{
+ fill: #FF7F0E
+}
+  </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script type="text/javascript">
+    	
+var w = 1600,
+    h = 950,
+    r = 250;
+
+var vp = [{"v":1,"d":"pcap"},{"v":1,"d":"Visualisation"},{"v":1,"d":"Malicious IP"},{"v":2,"d":"Structured"},{"v":2,"d":"Semi-structured"},{"v":2,"d":"Unstructured"},{"v":2,"d":"Neural foam"},{"v":2,"d":"Clustering"},{"v":2,"d":"Pattern based"},{"v":2,"d":"Visualisation"},{"v":2,"d":"3rd party feeds"},{"v":3,"d":"pcap"},{"v":3,"d":"VPN manager logs"},{"v":3,"d":"Web Pulse"},{"v":3,"d":"Webserver logs"},{"v":3,"d":"DNS"},{"v":3,"d":"Internal Situational Awareness"},{"v":4,"d":"Identity"},{"v":4,"d":"Access Rights"},{"v":4,"d":"User Activity"},{"v":4,"d":"Behavioral Fingerprinting"},{"v":4,"d":"Attributes based"},{"v":5,"d":"Activity Logs"},{"v":5,"d":"Peer group comparison"},{"v":5,"d":"Behaviour"},{"v":5,"d":"Characteristics based (120)"},{"v":5,"d":"Suspicious Users"},{"v":5,"d":"Suspicious Activity"},{"v":5,"d":"Internal Situational Awareness"},{"v":6,"d":"pcap"},{"v":6,"d":"Any log data"},{"v":6,"d":"Malware analytics"},{"v":6,"d":"Internal Situational Awareness"},{"v":6,"d":"RSA NetWitness Live"},{"v":7,"d":"File"},{"v":7,"d":"Advanced Classification Engine"},{"v":7,"d":"Suspicious File"},{"v":8,"d":"Whitelisting"},{"v":8,"d":"Advanced Persistent Threats"},{"v":8,"d":"Targeted Attacks"},{"v":8,"d":"Intelligence Feeds"},{"v":9,"d":"NetFlow"},{"v":9,"d":"sFlow"},{"v":9,"d":"Identity"},{"v":9,"d":"Behaviour"},{"v":9,"d":"Attributes based"},{"v":9,"d":"Security indices"},{"v":9,"d":"Malware"},{"v":9,"d":"Botnet"},{"v":9,"d":"Advanced Persistent Threats"},{"v":9,"d":"Internal Situational Awareness"},{"v":9,"d":"Team Cymru threat int"},{"v":10,"d":"pcap"},{"v":10,"d":"NetFlow"},{"v":10,"d":"BGP"},{"v":10,"d":"Metadata from multiple sources"},{"v":10,"d":"Log files"},{"v":10,"d":"DNS"},{"v":10,"d":"SIEM"},{"v":10,"d":"Relationship Analysis"},{"v":10,"d":"Behaviour"},{"v":10,"d":"Visualisation"},{"v":10,"d":"Data Exfiltration"},{"v":10,"d":"Internal Situational Awareness"},{"v":10,"d":"Intelligence Feeds"},{"v":11,"d":"NetFlow"},{"v":11,"d":"pcap"},{"v":11,"d":"Log files"},{"v":11,"d":"SIEM"},{"v":11,"d":"DNS"},{"v":11,"d":"L7 Metadata"},{"v":11,"d":"Pattern based"},{"v":11,"d":"Graph pattern matching"},{"v":11,"d":"Assisted pattern discovery"},{"v":11,"d":"Visualisation"},{"v":11,"d":"Advanced Persistent Threats"},{"v":11,"d":"Internal Situational Awareness"},{"v":12,"d":"Netflow"},{"v":12,"d":"LDAP"},{"v":12,"d":"Windows Login"},{"v":12,"d":"Apache logs"},{"v":12,"d":"Email logs"},{"v":12,"d":"Digital fingerprint"},{"v":12,"d":"Fanout charts"},{"v":12,"d":"Data Exfiltration"},{"v":12,"d":"Zero-day threat"},{"v":12,"d":"Intelligence Feeds"},{"v":13,"d":"Log files"},{"v":13,"d":"Visualisation"},{"v":13,"d":"Advanced Persistent Threats"},{"v":13,"d":"Insider Threats"},{"v":14,"d":"Application logs"},{"v":14,"d":"Security events"},{"v":14,"d":"Vulnerability data"},{"v":14,"d":"IAM data"},{"v":14,"d":"Configuration files"},{"v":14,"d":"Network flow telemetry"},{"v":14,"d":"Correlate Flow data"},{"v":14,"d":"Traffic profiling"},{"v":14,"d":"Advanced behavioral algorithms"},{"v":14,"d":"Zero-day threat"},{"v":14,"d":"Botnet"},{"v":14,"d":"Data Exfiltration"},{"v":14,"d":"X-Force IP Reputation Feed"},{"v":15,"d":"NetFlow"},{"v":15,"d":"Data from heterogeneous devices"},{"v":15,"d":"Behaviour based algorithms"},{"v":15,"d":"Baseline activity"},{"v":15,"d":"Pattern based threat detection"},{"v":15,"d":"Worms"},{"v":15,"d":"Botnet"},{"v":15,"d":"Zero-day threat"},{"v":15,"d":"Spam"},{"v":15,"d":"Reconnaissance attacks"},{"v":15,"d":"Internal Situational Awareness"},{"v":15,"d":"McAfee GTI feed"},{"v":16,"d":"Network data"},{"v":16,"d":"Relationship Analysis"},{"v":16,"d":"Structural and Temporal patterns"},{"v":16,"d":"Leverage human visual system"},{"v":16,"d":"Visualisation"},{"v":16,"d":"Detect Unknown patterns"},{"v":16,"d":"Botnet"},{"v":17,"d":"Webserver logs"},{"v":17,"d":"Application logs"},{"v":17,"d":"Server logs"},{"v":17,"d":"Network data"},{"v":17,"d":"Mobile devices"},{"v":17,"d":"Link Analysis"},{"v":17,"d":"Relationship mapping"},{"v":17,"d":"Visual discovery"},{"v":17,"d":"Visualisation"},{"v":18,"d":"L7 Data"},{"v":18,"d":"Heuristic based filtering"},{"v":18,"d":"Network Behavior Analysis"},{"v":18,"d":"Human Behavior Analysis"},{"v":18,"d":"DDoS attacks"},{"v":18,"d":"Internal Situational Awareness"},{"v":19,"d":"email metadata"},{"v":19,"d":"Phishing"},{"v":19,"d":"Spearphishing"},{"v":19,"d":"External Situational Awareness"},{"v":20,"d":"NetFlow"},{"v":20,"d":"sFlow"},{"v":20,"d":"Netstream "},{"v":20,"d":"jFlow"},{"v":20,"d":"IPFIX"},{"v":20,"d":"Network Behavior Analysis"},{"v":20,"d":"BYOD monitoring"},{"v":20,"d":"Intelligence Feeds"},{"v":21,"d":"Multiple sources"},{"v":21,"d":"Powerful interpretation layer"},{"v":21,"d":"Collaborative approach"},{"v":21,"d":"No algorithms"},{"v":21,"d":"Data exfiltration"},{"v":21,"d":"Cyber fraud"},{"v":21,"d":"Internal Situational Awareness"}]
+
+var vis = d3.select("#chart").append("svg:svg")
+    .attr("width", w)
+    .attr("height", h)
+    .append("svg:g")
+    .attr("id","vnames");
+
+//Display background rectangle for vendor names display
+ vis.append("rect")
+    .attr("transform", "translate (440,-260)")
+    .attr("width", 160)
+    .attr("height", 540)
+    .attr("fill", "#FEE8C8")
+    .attr("opacity",".6")
+    //.attr("stroke","#FDBB84");
+
+var partition = d3.layout.partition()
+    .sort(null)
+    .size([2 * Math.PI, r * r])
+    .children(function(d) {return isNaN(d.value) ? d3.entries(d.value) : null; })
+    .value(function(d) { return d.value; });
+
+var arc = d3.svg.arc()
+    .startAngle(function(d) { return d.x; })
+    .endAngle(function(d) { return d.x + d.dx; })
+    .innerRadius(function(d) { return Math.sqrt(d.y); })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+
+d3.json("market.json", function(json) {
+
+  var color = d3.scale.category10();
+
+  var g = vis.attr("transform", "translate(" + w/3  + "," + h /2.1 + ")")
+      .data(d3.entries(json)).selectAll("g")
+      .data(partition)
+    .enter().append("svg:g")
+      .attr("display", function(d) {return d.depth ? null : "none"; }); // hide inner ring
+
+  g.append("svg:path")
+      .attr("d", arc)
+      .attr("id", function(d,i){return d.depth == 1 ? d.data.key : "attrib"})
+      .attr("stroke", "#fff")
+      .attr("class",function(d){return ((d.children ? d : d.parent).data.key).substring(2,0)})
+      .attr("fill-rule", "evenodd");
+
+  g.filter(function(d){return d.depth==2})
+      .append("svg:text")
+      .attr("id", "attrib")
+      .attr("text-anchor", function(d) {
+        return d.x + d.dx / 2 > Math.PI ? "end" : "start";
+      })
+      .attr("transform", function(d) {var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90; return "rotate(" + angle + ")translate(" + (angle > 90 ? 6    +2*r-2*(Math.sqrt(d.y + d.dy)-Math.sqrt(d.y)): 0) + ")rotate(" + (angle > 90 ? 180 : 0) + ")" })
+      .attr("x", function(d) {return Math.sqrt(d.y); })
+      .attr("dx", "6") // margin
+      .attr("dy", ".35em") // vertical-align
+      .text(function(d,i) { return d.data.key; })
+      .on("mouseover",function(e) {d3.select(this).attr('font-size', '150%');updatevdr(e)})
+      .on("mouseout",function(e) {d3.select(this).attr('font-size', '100%');d3.selectAll("#vname").attr("opacity",1);})
+
+//      .on("mouseover", function() { })
+//      .on("mouseout", function() { });
+
+  g.filter(function(d){return d.depth==1})
+     .append("svg:text")
+     .attr("dx", 3) // margin
+     .attr("dy", 15) // vertical-align
+     .attr('font-size', "17px")
+     .append("textPath")
+     .attr("xlink:href",function(d){return "#"+d.data.key})
+     .text(function(d) { return d.data.key; });
+});
+
+// Filter functions
+function updatevdr(prop) 
+{
+// d3.json("vplink.json", function (error,json) {
+     var fltr = vp.filter(function(d){return d["d"] == prop.data.key})
+     d3.selectAll("#vname").filter(function(v){if(compare(v)){return true;}else{return false;}}).attr("opacity",0.1);
+
+ function compare(v) {
+      for (var i = 0; i < fltr.length; i++) {
+       if (v.c == fltr[i].v){return false}
+      }
+      return true
+  }
+}
+
+
+function update(ven) {
+     var fltr = vp.filter(function(d){return d["v"] == ven.c})
+
+     d3.selectAll("#attrib").filter(function(v){if(compare(v)){return true;}else{return false;}}).transition().duration(1000)
+.attr('opacity', 0.1);
+
+  function compare(v) {
+      for (var i = 0; i < fltr.length; i++) {
+      if (v.data.key == fltr[i].d){return false}
+     }
+     return true
+  }
+}
+
+// Display vendor names on right hand side
+
+var   vn = [{"v":"Packetloop","c":1},{"v":"Red Lambda","c":2},{"v":"Solera Networks","c":3},{"v":"Veriphyr","c":4},{"v":"Securonix","c":5},{"v":"EMC RSA","c":6},{"v":"Websense","c":7},{"v":"TrendMicro","c":8},{"v":"Lancope","c":9},{"v":"Narus","c":10},{"v":"21CT","c":11},{"v":"Click Security","c":12},{"v":"eIQnetworks","c":13},{"v":"IBM","c":14},{"v":"McAfee","c":15},{"v":"Synerscope","c":16},{"v":"Centrifuge Systems","c":17},{"v":"Black Lotus","c":18},{"v":"Agari","c":19},{"v":"Plixer","c":20},{"v":"Palantir","c":21}]
+
+
+var   vname = d3.select("#vnames").selectAll("text")
+             .data(vn)
+             .enter()
+             .append("svg:text")
+             .attr("transform", "translate (-390,-260)")
+             .attr("id","vname")
+             .style("fill", "#B30000")
+             .style("font-family", "ubuntu")
+             .style("font-size", "16px")
+             .attr("class", "vendor")
+             .text(function(d) {return d.v;})
+             .attr("x", 840)
+             //placing Vendor names one below the other
+             .attr("y", function(vn){return 25*vn.c})
+
+ //      vname.on("mouseover",function(e) {d3.selectAll("#force").filter(function(v){return v.v != e.c}).attr("display","none");})
+
+       vname.on("mouseover",function(e) {d3.select(this).style("fill", "#347C17");update(e)})
+            .on("mouseout",function(e) {d3.select(this).style("fill", "#B30000");d3.selectAll("#attrib").transition().duration(1000).attr('opacity', 1);})
+
+
+    </script>
+  </body>
+</html>

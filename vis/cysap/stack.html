@@ -1,0 +1,318 @@
+<html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<style>
+
+marker#thick {
+fill: #E17366;
+}
+
+.legend{
+   font: 10px Verdana;
+}
+
+.components{
+   font: 15px Arial;
+}
+
+</style>
+</head>
+
+<body>
+
+<script type='text/javascript'>
+
+//Define the SVG
+
+var svg = d3.select("body").append("svg")
+                           .attr("width", 1250)
+                           .attr("height", 560)
+                           .attr("id", "svg");
+
+//Define the variables used
+
+var colors = ["#FB8072","#FFFFB3","#BEBADA","#8DD3C7","#80B1D3","#FDB462","#B3DE69"]
+var circles = [670,700,730,760,790,820,850,880,910,940,970,1000,1030]
+var alpha = ["","A","B","C","D","E","F","G","H","I","J","K","L"]
+var tw = []
+var txtxpos = []
+var txtypos = []
+var connectors = [[],[2,6],[4,9],[0,11,21],[3,5,16],[1,7,17],[0,10,12],[1,8,15,17],[2,13,17],[18,19],[11,14,18,20],[0,11],[0,22]]
+var htmltext = [["<h2>Introduction</h2><p>One of the advantages of using big data technologies for <i>machine data analytics</i> is the flexibility they offer. Depending on the scope and need, one can flexibly change the underlying components.The material presented here shows us that <i>security analytics</i> is not a product, but a solution.<p> In the following sections we will explore some of the stacks that are currently deployed at various organisaions.Information has been gathered from various articles and use cases shared earlier. You can refer to some of them under Case Study section in <a href='http://www.cysap.org/curated-content' target='_new'>Bubble Links</a>.<p>Broadly, we see two types of use cases,<p><i><ul><li>Indexing and Search<li>Analysis and Visualisation</ul></i><p>Key criteria in chosing components include throughput, latency, ease of deployment among others.<p>Kindly mouse over the below circles for a few stacks and some notes around them."],["<h2>Stack - A </h2><p>In this stack, a NoSQL data store, MongoDB, is used as a repository for log data. Fluentd, is the tool used to collect the logs.<br><p>Performing <i>statistical analysis</i> on the collected data is the primary use case for this stack.<br><p>Benefits include realtime log data collection and offline storage.<br><p><b>Further Reading:</b><br><p><a href='http://docs.fluentd.org/articles/apache-to-mongodb' target='_new'>Store Apache Logs into MongoDB</a></p>"],["<h2>Stack - B</h2><p>In this stack a NoSQL data store, HBase, and an Index and Search tool, Solr, are deployed.<br><p>Performing <i>complex queries, storage and random access and full text search</i> on the collected data are some of the use cases for this stack.<br><p><b>Further Reading:</b><p><a href='http://www.slideshare.net/SwissHUG/bigdata-usergroup-presentation' target='_new'>Large Scale Log Analysis with HBase and Solr at Amadeus</a>"],["<h2>Stack - C</h2><p>With this stack, a <i>Security Data Warehouse</i>, is created using Hadoop Distributed File System and Hive.<p>R is used for performing predictive analytics modeling.<br><p><b>Further Reading:</b><p><a href='http://www.slideshare.net/Hadoop_Summit/security-data-deluge' target='_new'>Security data deluge</a>"],["<h2>Stack - D</h2><p>In this stack we see the two avatars of Splunk. As an <i>Index and Search tool</i> and as a front end for NoSQL data store.<p>Splunk has a <i>universal forwarder</i> that collects data from machine data sources and puts them in Splunk server for indexing and searching.<p>As a GUI, Splunk offers data visualisation and query features to interact with the NoSQL.<p>Cassandra,a NoSQL data store, is used for storing application data and windows server event logs.<p><b>Further Reading:</b><p><a href='http://searchdatamanagement.techtarget.com/news/2240146589/Expedia-snubs-hosted-tools-in-bid-to-manage-machine-generated-data' target='_new'>Expedia snubs hosted tools in bid to manage machine-generated data</a>"],["<h2>Stack - E</h2><p>In this stack we see Logstash, a tool for shipping and parsing machine data, being put to use for shipping machine data.Logstash comes with Grok, a feature to parse any arbitrary log data.<p>ElasticSearch is an <i>Index and Search</i> tool built on Apache Lucene. It offers near real time search capability.<p>Kibana is a highly scalable user interface for Logstash and ElasticSearch allowing efficient search and visualization of the machine data stored.<p><b>Further Reading:</b><p><a href='http://spredzy.wordpress.com/2013/03/02/monitor-your-cluster-of-tomcat-applications-with-logstash-and-kibana/' target='_new'>Monitor your cluster of Tomcat applications with Logstash and Kibana</a>"],["<h2>Stack - F</h2><p>In thisk stack, machine data gets streamed from hundreds of servers to the Hadoop Distributed File System (HDFS).<p>A scheduler runs to index and store the data using Solr, an <i>Index and Search</i> tool.<p>Hadoop Hue could be the user interface to query and explore data through a web browser.<p><b>Further Reading:</b><p><a href='http://highscalability.com/how-rackspace-now-uses-mapreduce-and-hadoop-query-terabytes-data' target='_new'>How Rackspace Now Uses MapReduce And Hadoop To Query Terabytes Of Data</a><p><a href='http://blog.cloudera.com/blog/2013/06/demo-the-new-search-app-in-hue-2-4/' target='_new'>Demo: The New Search App in Hue 2.4</a>"],["<h2>Stack - G</h2><p>We get this by adding another component to the stack E.Redis, a NoSQL data store, is added here. Redis is used for performance and sclability purposes.<p><b>Further Reading:</b><p><a href='http://logstash.net/docs/1.1.13/tutorials/getting-started-centralized' target='_new'>Logstash Getting Started - Centralized Setup with Event Parsing</a><p><a href='http://cleversoft.wordpress.com/2013/04/05/887/' target='_new'>Kibana + ElasticSearch + Logstash + Redis on RHEL 6</a>"],["<h2>Stack - H</h2><p>In this stack Fluentd is used to collect events and logs. Fluentd is a tool to collect events and logs. Fluentd has around 150+ plugins, for different input and output components. Otherwise this stack is same as the one we had seen in section E.<p><b>Further Reading:</b><p><a href='http://docs.fluentd.org/articles/free-alternative-to-splunk-by-fluentd' target='_new'>Free Alternative to Splunk Using Fluentd</a>"],["<h2>Stack - I</h2><p>In this stack Flume is used to collect events and logs. Data is stored in Cassandra for near real time queries.<p><b>Further Reading:</b><p><a href='http://www.slideshare.net/geminimobile/logprocessing20110305' target='_new'>Real time, High Volume log processing with Flume and Cassandra</a>"],["<h2>Stack - J</h2><p>In this stack Flume is used to collect events and logs. Data is stored in HDFS and Hive datawarehouse. Near real time queries are made using Cloudera Impala.<p><b>Further Reading:</b><p><a href='http://www.ymc.ch/en/case-study-retail-wifi-log-file-analysis-with-hadoop-and-impala-part-1' target='_new'>Retail WiFi Log-file Analysis with Hadoop and Impala</a>"],["<h2>Stack - K</h2><p>In this stack, data gets moved to Hadoop Distributed File System and Hive is used for querying using HiveQL.<br><p><b>Further Reading:</b><p><a href='http://www.cert.org/flocon/2013/presentations/lee-yeonhee-scalable-netflow-analysis-hadoop.pdf' target='_new'>Scalable NetFlow Analysis with Hadoop - Cert</a>"],["<h2>Stack - L</h2><p>In this stack, data gets moved to Hadoop Distributed File System. Analysis is done using Pig scripts.<p><b>Further Reading:</b><p><a href='http://blog.packetloop.com/2012/03/packetpig-open-source-big-data-security.html' target='_new'>Packetpig - Open Source Big Data Security Analysis</a>"]];
+
+var lineData = [
+  [{"x":150,"y":60},{"x":100,"y":60},{"x":100,"y":125}],
+  [{"x":310,"y":60},{"x":430,"y":60},{"x":430,"y":136}],
+  [{"x":310,"y":60},{"x":520,"y":60},{"x":520,"y":136}],
+  [{"x":170,"y":74},{"x":170,"y":207}],
+  [{"x":220,"y":74},{"x":220,"y":156}],
+  [{"x":300,"y":74},{"x":300,"y":262},{"x":516,"y":262}],
+  [{"x":520,"y":165},{"x":520,"y":220},{"x":285,"y":220}],
+  [{"x":440,"y":164},{"x":440,"y":306}],
+  [{"x":260,"y":284},{"x":260,"y":320},{"x":416,"y":320}],
+  [{"x":244,"y":170},{"x":380,"y":170},{"x":380,"y":356}],
+  [{"x":380,"y":384},{"x":380,"y":470},{"x":427,"y":470}],
+  [{"x":100,"y":155},{"x":100,"y":397}],
+  [{"x":100,"y":155},{"x":100,"y":373},{"x":356,"y":373}],
+  [{"x":500,"y":165},{"x":500,"y":306}],
+  [{"x":100,"y":424},{"x":100,"y":445},{"x":126,"y":445}],
+  [{"x":420,"y":164},{"x":420,"y":270},{"x":282,"y":270}],
+  [{"x":170,"y":234},{"x":170,"y":430},{"x":465,"y":430}],  
+  [{"x":520,"y":320},{"x":580,"y":320},{"x":580,"y":416}],
+  [{"x":310,"y":60},{"x":580,"y":60},{"x":580,"y":86}],
+  [{"x":550,"y":100},{"x":170,"y":100},{"x":170,"y":207}],
+  [{"x":550,"y":100},{"x":100,"y":100},{"x":100,"y":125}],
+  [{"x":100,"y":424},{"x":100,"y":456}],
+  [{"x":100,"y":155},{"x":100,"y":352},{"x":125,"y":352}]
+];
+
+var legend = ["All sources of Machine Data","Data Ingestion Utilities","Hadoop Distributed File System","NoSQL data stores","Index and Search tools","Analysis tools","User Interface tools"];
+
+// Draw legend for stacks
+
+var legend = svg.append('svg:g').selectAll("g")
+                .data(legend)
+                .enter()
+
+legend.append("svg:text")
+      .text(function(d) {return d;})
+      .attr("class","legend")
+      .each(function(d,i) {tw [i] = this.getBBox().width;
+             txtxpos[0]=100
+             txtypos[0]=525
+             if(txtxpos[i]+tw[i]>500) {
+                txtxpos[i+1]= 110, txtypos[i+1] = txtypos[i] + 25
+             }
+            else {txtxpos[i+1] = txtxpos[i] + tw[i] + 20, txtypos[i+1] = txtypos[i] }  
+            return txtxpos[i];
+      })
+     .attr("x",function(d,i) {return txtxpos[i]+12;})
+     .attr("y",function(d,i) {return txtypos[i];})
+
+legend.append("rect")
+      .attr("x",function(d,i) {return txtxpos[i];})
+      .attr("y",function(d,i) {return txtypos[i]-8;})
+      .attr("width", 10 )
+      .attr("height", 10)
+      .style("fill", function(d,i) {return colors[i];})
+
+// Function to write HTML text descriptions
+
+function writext(pos) {
+
+//Remove the previous HTML text
+
+d3.selectAll("#htmltxt").remove()
+
+// Define HTML text outside SVG.Discarded,
+/*
+var m = htmltext[pos];
+var txt = d3.select("body").append("div")
+             .data(m)
+             .attr("id","htmltxt")
+             .attr("x", 650)
+             .attr("y", 40)
+             .attr("width", 400)
+             .attr("height", 450)
+             .append("body")
+             .style("font", "12px 'Helvetica Neue'")
+             .html(function(d){return d;})
+*/
+
+// Define variables
+
+var m = htmltext[pos];
+var txt = d3.select("#explanatoryNotes").append("foreignObject")
+             .data(m)
+             .attr("id","htmltxt")
+             .attr("x", 650)
+             .attr("y", 40)
+             .attr("width", "45%")
+             .attr("height", "100%")
+             .append("xhtml:body")
+             .attr("xmlns","http://www.w3.org/1999/xhtml")
+             .style("font", "14px 'Helvetica Neue'")
+             .html(function(d){return d;})
+}
+
+function drawCircles() {
+
+// Draw the circles with alphabets for mouse-over based interaction
+var explanatoryNotes = svg.append('svg:g')
+     .attr("id", "explanatoryNotes")
+
+//Write explanatory text
+var m = htmltext[0];
+var txt = explanatoryNotes.append("foreignObject")
+             .data(m)
+             .attr("id","htmltxt")
+             .attr("x", 650)
+             .attr("y", 40)
+             .attr("width", "45%")
+             .attr("height", "100%")
+             .append("xhtml:body")
+             .attr("xmlns","http://www.w3.org/1999/xhtml")
+             .style("font", "14px 'Helvetica Neue'")
+             .html(function(d){return d;})
+
+// Draw the circles with alphabets for mouse-over based interaction
+var stacks = svg.append('svg:g')
+     .attr("id", "circle")
+
+stacks
+     .selectAll("circle")
+     .data(circles)
+     .enter()
+     .append("circle")
+     .attr("cx", function(d) {return d;})
+     .attr("cy",520)
+     .attr("r", 13)
+     .style("fill", "#BAE4BC")
+     .on("mouseover", function(d,i){thicklines(i);writext(i);});
+
+stacks
+     .selectAll("text")
+     .data(circles)
+     .enter()
+     .append("text")
+     .attr("text-anchor", "middle")
+     .text(function(d,i) {return alpha[i]})
+     .attr("x",function(d) {return d})
+     .attr("y",525)
+     .style("fill", "#000000")
+     .style("font-family", "monospace")
+     .style("font-size","14px")
+
+}
+
+
+// Function to draw the stacks
+
+function drawstacks() {
+
+d3.json("models.json", function(models) {
+
+//Stacks
+
+var grp = svg.append("svg:g").selectAll("g")
+             .data(models)
+             .enter()
+
+grp.append("svg:text")
+   .attr("x",function(d) {return d.x+7;})
+   .attr("y",function(d) {return d.y-23;})
+   .attr("class", "shadow")
+   .text(function(d) {return d.comp;})
+   .attr("class","components")
+   .each(function(d,i) {tw [i] = this.getBBox().width;})
+
+grp.append("rect")
+    .attr("class", "clickable")
+    .attr("x",function(d) {return d.x;})
+    .attr("y",function(d) {return d.y-40;})
+    .attr("width", function(d,i){return tw[i]+10;} )
+    .attr("height", 25)
+    .attr("fill", function(d) {return colors[d.c];})
+
+grp.append("text")  
+   .attr("x",function(d) {return d.x+7;})
+   .attr("y",function(d) {return d.y-23;})
+   .attr("class","components")
+   .text(function(d,i) {return d.comp;})
+   })
+}
+
+function lightlines() {
+
+//Marker
+     svg.append('svg:g').append('svg:marker')
+        .attr('id', 'end-arrow')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 6)
+        .attr('markerWidth', 5)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .append('svg:path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', 'papayawhip')
+
+//This is the accessor function we talked about above
+var line = d3.svg.line()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; })
+    .interpolate("linear");
+
+//The line SVG Path we draw
+var lineGraph = svg.append('svg:g').selectAll(".line")
+                    .data(lineData)
+                    .enter()
+                    .append("path")
+                    .attr("d", line)
+                    .attr("stroke", "papayawhip")
+                    .attr("stroke-width", 2)
+                    .attr("stroke-dasharray","0,2 1")
+                    .attr("fill", "none")
+                    .attr("marker-end", "url(#end-arrow)")
+}
+
+//Draw the stacks, lightlines and introductory HTML text
+//writext(0);
+lightlines();
+drawstacks();
+drawCircles();
+
+function thicklines(s) {
+
+//Index values of connector lines
+
+var selconn = connectors[s]
+
+//Filter out connectors not needed
+var fltrline = lineData.filter(function(d,i){return (selconn.indexOf(i)>-1)})
+
+//Define the Marker
+
+     svg.select("marker")
+        .append('svg:marker')
+        .attr('id','thick')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 6)
+        .attr('markerWidth', 5)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .append('svg:path')
+        .attr('d', 'M0,-5L10,0L0,5')
+
+//This is the accessor function
+
+var line = d3.svg.line()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; })
+    .interpolate("linear");
+
+var lineGraph = svg.selectAll("#thickline")
+                   .data(fltrline)
+
+//Line Update
+    lineGraph.transition()
+             .duration(200).ease("linear").attr("d", line);
+
+//Line Enter
+          lineGraph.enter().append("path")
+                   .attr("d", line)
+                   .attr("stroke", "#E17366");
+
+//Line Enter + Update
+          lineGraph.attr("stroke-width", 2)
+                   .attr("fill", "none")
+                   .attr("marker-end", "url(#thick)")
+                   .attr("id","thickline");
+
+//Remove unused lines
+         lineGraph.exit().remove();
+
+}
+
+</script>
+</body>
+</html>
