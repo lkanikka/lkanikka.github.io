@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- CYSAP Data Analytics Private Limited, www.cysap.com  -->
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css' />
+    <title>UK Visualizations</title>
+ 
+    <!--  Scripts   -->
+    <script type="text/javascript" src="d3.v3.min.js"></script>
+    <script type="text/javascript" src="charts.js"></script>
+    <script type="text/javascript" src="d3.legend.js"></script>
+
+    <!--  Styles  -->  
+    
+   <style type="text/css">
+   text {
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 9px;
+   pointer-events: none;
+   }
+   .node {
+  border: solid 1px white;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+   .arc {
+  	stroke: #fff;
+	}
+   .legend rect {
+ 		fill:white;
+ 		opacity:0.9;
+ 		}
+ 	.bar {
+ 	 fill: purple;
+	}
+	.bar:hover {
+  	fill: orange;
+	}
+	.axis path,
+	.axis line {
+ 		 fill: none;
+  		 stroke: #000;
+  		 shape-rendering: crispEdges;
+	}
+  .chart rect {
+  stroke: white;
+  fill: purple;
+}
+  .chart rect:hover {
+    fill: orange;
+  }
+
+.chart line {
+  stroke: #c1c1c1;
+}
+.area {
+  fill: steelblue;
+}
+
+.linechart { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+body{
+  	color: #fc4e2a; 
+  	font-family: Lato; 
+  	font-size: 24px;
+  }
+  map{font-size: 15px; 
+  	fill: "#000"; 
+  }
+
+</style>
+
+</head>
+  
+<body>
+ <div style="width:40%;float:left">
+  	<div id="vbarw" style="height:300px;border:1px solid #8dd3c7;">Vertical Bar</div>
+   	<div id="vbarm" style="height:300px;border:1px solid #8dd3c7;">Vertical Bar - Monthwise</div>
+    <div id="broline" style="height:300px;border:1px solid #8dd3c7;">Line graph</div>
+    <div id="tree" style="height:300px;border:1px solid #8dd3c7;">Tree Map</div>
+ </div>
+
+ <div style="width:50%;float:left">
+  	<div id="ring" style="bottom:10;right:0;width:650px;height:300px;border:1px solid #8dd3c7;">Donut</div>
+  	<div id="hbar" style="bottom:10;right:0;width:650px;height:300px;border:1px solid #8dd3c7;">Horizontal Bar</div>
+    <div id="area" style="bottom:10;right:0;width:650px;height:300px;border:1px solid #8dd3c7;">Area chart</div>
+    <div id="bubble" style="bottom:10;right:0;width:650px;height:300px;border:1px solid #8dd3c7;">Bubble chart</div>
+ </div>
+ 
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+{
+ "name": "flare",
+ "children": [
+  {
+   "name": "analytics",
+   "children": [
+    {
+     "name": "email",
+     "children": [
+      {"name": "gmail", "size": 3938},
+      {"name": "yahoo", "size": 3812},
+      {"name": "hotmail", "size": 6714},
+      {"name": "corporate", "size": 743}
+     ]
+    },
+    {
+     "name": "social",
+     "children": [
+      {"name": "facebook", "size": 2313},
+      {"name": "google+", "size": 1880},
+      {"name": "flipboard", "size": 1701}
+     ]
+    },
+    {
+     "name": "news",
+     "children": [
+      {"name": "BBC", "size": 20859},
+      {"name": "ABC", "size": 4614},
+      {"name": "Reuter", "size": 10530}
+     ]
+    },
+    {
+     "name": "shop",
+     "children": [
+      {"name": "amazon", "size": 20859},
+      {"name": "waitrose", "size": 4614},
+      {"name": "asda", "size": 10530},
+      {"name": "sainsbury", "size": 10530}
+     ]
+    },
+    {
+     "name": "fun",
+     "children": [
+      {"name": "imax", "size": 20859},
+      {"name": "ifun", "size": 4614},
+      {"name": "rfun", "size": 10530},
+      {"name": "dfun", "size": 10530}
+     ]
+    },
+    {
+     "name": "blogs",
+     "children": [
+      {"name": "eblogger", "size": 20859},
+      {"name": "wordpress", "size": 4614},
+      {"name": "flipboard", "size": 10530},
+      {"name": "rblog", "size": 10530}
+     ]
+    },
+    {
+     "name": "travel",
+     "children": [
+      {"name": "cleartrip", "size": 20859},
+      {"name": "tripadvisor", "size": 4614},
+      {"name": "foxtraveller", "size": 10530}
+     ]
+    },
+    {
+     "name": "browse",
+     "children": [
+      {"name": "google", "size": 20859},
+      {"name": "yahoo", "size": 4614},
+      {"name": "weather", "size": 10530},
+      {"name": "cooking", "size": 10530}
+     ]
+    },
+    {
+     "name": "other",
+     "children": [
+      {"name": "github", "size": 20859},
+      {"name": "developer", "size": 4614},
+      {"name": "automobiles", "size": 10530},
+      {"name": "sports", "size": 10530}
+     ]
+    }
+   ]
+  }
+ ]
+}
