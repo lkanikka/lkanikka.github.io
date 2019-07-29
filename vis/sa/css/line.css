@@ -1,0 +1,29 @@
+body{
+    font-family: Lato; 
+}
+
+text {
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 9px;
+}
+
+.linechart { 
+    stroke: #006784;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.tick >text {
+  font-size:12px;}
+  
+  #label{
+      font-family: 'Arial Narrow', Arial, sans-serif; font-size:8px;
+  }

@@ -1,0 +1,43 @@
+/*
+ * Base structure
+ */
+
+/* Move down content  */
+
+body{
+    font-family: Lato; 
+    font-size: 24px;
+    padding-top: 40px;
+  }
+
+  rect:hover {
+  	fill: lightgrey;
+	}
+
+    text {
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 7px;
+   pointer-events: none;
+   }
+
+.axis path {
+    stroke: lightgrey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+#rest path {
+    stroke: lightgrey;
+    stroke-width: 0;
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    stroke: lightgrey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+#lgnd,
+.tick >text {
+  font-size:12px;}

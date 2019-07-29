@@ -1,0 +1,64 @@
+/*
+ * Base structure
+ */
+
+/* Move down content  */
+
+body{
+    font-family: Lato; 
+    font-size: 24px;
+    padding-top: 40px;
+  }
+
+  rect:hover {
+  	fill: lightgrey;
+	}
+
+    text {
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 9px;
+   pointer-events: none;
+   }
+
+  .bar1 {
+   fill: #00b9f1;
+  }
+  .bar2 {
+   fill: #006784;
+  }
+  .bar3 {
+   fill: #ec0080;
+  }
+  .bar4 {
+   fill: #00b49c;
+  }
+  .bar5 {
+   fill: #f9a31a;
+  }
+  .bar6 {
+   fill: #58585b;
+  }
+  .bar7 {
+   fill: #65953b;
+  }
+
+.axis path {
+    stroke: lightgrey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+#rest path {
+    stroke: lightgrey;
+    stroke-width: 0;
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    stroke: lightgrey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.tick >text {
+  font-size:12px;}

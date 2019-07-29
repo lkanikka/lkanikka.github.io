@@ -1,0 +1,28 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.browser text {
+  text-anchor: end;
+}
+
+.area{
+stroke: #FFF;
+stroke-width:1px;
+}
+
+.axis text {
+  font: 12px sans-serif;
+}
+
+.avg{
+  fill: #fff;
+  font: 12px sans-serif;
+}
