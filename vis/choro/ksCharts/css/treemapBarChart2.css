@@ -1,0 +1,25 @@
+svg.treemap-bar-chart .axis .domain {
+    display: none;
+}
+
+svg.treemap-bar-chart .axis line {
+    stroke: #ccc;
+    stroke-width: 0.5;
+}
+
+svg.treemap-bar-chart .axis.x0 text {
+    font-weight: 700;
+}
+
+svg.treemap-bar-chart rect {
+    stroke: black;
+    stroke-width: 0.5;
+}
+
+svg.treemap-bar-chart .hover-active rect {
+    opacity: .3;
+}
+
+svg.treemap-bar-chart .hover-active rect.hover {
+    opacity: 1;
+}

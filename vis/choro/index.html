@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+  <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css' />
+<style>
+
+.orange{
+	stroke: orange;
+	stroke-width: 2px;
+}
+
+.mapBorder{
+	border: 1px solid #000
+}
+
+.counties {
+  fill: teal;
+}
+
+.states {
+  fill: none;
+  stroke: #000;
+  stroke-linejoin: round;
+}
+
+.title{
+  	color: #fc4e2a; 
+  	font-family: Lato; 
+  	font-size: 16px;
+  }
+
+#statMap {
+  fill: none;
+  stroke: #d3d3d3;
+  stroke-linejoin: round;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: Lavender;
+  border: 0px;
+  border-radius: 5px;
+  pointer-events: none;
+  }
+
+  .bmargin{
+  	margin-bottom: 4px
+  }
+
+  .tmargin{
+  	margin-top: 2px
+  }
+
+   .lmargin{
+  	margin-left: 1px
+  }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+
+}
+
+</style>
+<body>
+
+  <div class="container-fluid">
+
+      <div class="row-fluid bmargin">
+			<form action="" method="get">
+			<select id="statSel">
+			  <option value="total">Demography Data A</option>
+			  <option value="food">Demography Data B</option>
+			  <option value="cerealProd">Demography Data C</option>
+			  <option value="cereals">Demography Data D</option>
+			  <option value="rice">Demography Data E</option>
+			</select>
+			</form>
+      Click on county to get details. Mouseover bar and raidal
+		</div>
+
+      <div class="row-fluid">
+         <div class="col-lg-9 mapBorder">
+             <div class="row tmargin lmargin">
+				    <button class="button" id="zoom_in">+</button>
+					<button class="button" id="zoom_out">-</button>
+				    <input class="zoomBtn" id="reset" type="button" value="Reset" />
+	          </div>
+			<div class="row tmargin" id="mapChart"></div>
+         </div>
+         <div class="col-lg-3">
+         	<div class="row">
+              <div class="col-lg-2">
+               <div class="title">County: </div>
+              </div>
+              <div class="col-lg-10">
+               <div class="title" id="title"></div>
+              </div>
+            </div>
+			<div class="row" id="ringChart1"></div>
+			<div class="row" id="ringChart2"></div>
+			<div class="row" id="stackedBar"></div>
+         </div>
+	  </div>
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/queue.v1.min.js"></script>
+<script src="js/topojson.v1.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+
+ d3.csv("data/radial.csv", function(radial) {
+
+//Initial map
+ drawmap(0)
+
+//Key Select
+
+d3.select('select')
+    .on("change", function() {
+        d3.select('#svg').remove()
+        var key = this.selectedIndex;
+        drawmap(key);
+     })
+
+var tdiv = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+function drawmap(statSel){
+
+   d3.select("#reset").on("click", reset);
+
+       var width = 940,
+        height = 550,
+         center = [width / 2, height / 2];
+
+ var zoom
+
+   function reset() {
+   	 zoom.scale(1)
+   	 zoom.translate([0,0])
+     g.attr('transform', "translate(0,0)")
+     h.attr('transform', "translate(0,0)")
+   }
+
+    var fullList = ["Total_Specified_Consumer_Expenditures","Food_At_Home","Cereals_AND_Cereal_Products","Cereals","Rice"]
+
+    var selectedItem =fullList[statSel]
+    var colRange = selectedItem+"_color"
+
+    var projection = d3.geo.albersUsa()
+                       .scale(1100)
+                       .translate([width / 2, height / 2]);
+
+    var path = d3.geo.path()
+                 .projection(projection);
+
+  var svg = d3.select("#mapChart").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("id", 'svg')
+
+   var g =  svg.append("g")
+   var h =  svg.append("g")
+//Draw Map
+
+queue()
+    .defer(d3.json, "data/us.json")
+    .defer(d3.csv, "data/data.csv")
+    .await(ready);
+
+var cName
+
+function ready(error, us, data) {
+  var geo, gcolor
+  var statisticsBygeo = {}
+  var colorBygeo = {}
+  var countyName={}
+   data.forEach(function(d,i) {
+   	 countyName[d.Geography_Code_Concatenated_Geography_Code] = d["County_Name"]
+     statisticsBygeo[d.Geography_Code_Concatenated_Geography_Code] = d[selectedItem]
+     colorBygeo[d.Geography_Code_Concatenated_Geography_Code] = d[colRange]
+          })
+
+g
+            .selectAll("path")
+             .data(topojson.feature(us, us.objects.counties).features)
+            .enter().append("path")
+            .attr("class","counties")
+            .on("mouseover", function(d) {
+            	var c = "C"+d.id
+            	cName = countyName[c]
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tdiv .html(countyName[c]+"<br>"+statisticsBygeo[c])  
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+     .on("mouseout", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", 0);
+        })
+     .on("click",function(e){
+     	  d3.selectAll(".counties").classed("orange", false);
+          d3.select(this).classed("orange", true);
+          tick(e,cName);tickb(e);stack(e)
+       })
+    .style("fill", function(d){
+    	     var c = "C"+d.id
+    	     return colorBygeo[c]
+    	     })
+      .attr("d", path)
+
+h
+      .append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("d", path);
+
+ zoom = d3.behavior.zoom()
+    .on("zoom",function() {
+        g.attr("transform","translate("+ 
+            d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+         g.selectAll("circle")
+            .attr("d", path.projection(projection));
+        g.selectAll("path")  
+            .attr("d", path.projection(projection)); 
+
+        h.attr("transform","translate("+d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+        h.selectAll("path")  
+            .attr("d", path.projection(projection)); 
+  })
+
+svg.call(zoom)
+
+//begin zoom button
+function zoomed() {
+  g.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")");
+  h.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")");
+}
+
+//d3.select(self.frameElement).style("height", height + "px");
+
+d3.selectAll('.button').on('click', function(){
+    d3.event.preventDefault();
+        scale = zoom.scale(),
+        extent = zoom.scaleExtent(),
+        translate = zoom.translate(),
+        x = translate[0], y = translate[1],
+        factor = (this.id === 'zoom_in') ? 1.2 : 1/1.2,
+        target_scale = scale * factor;
+
+    // If we're already at an extent, done
+    if (target_scale === extent[0] || target_scale === extent[1]) { return false; }
+    // If the factor is too much, scale it down to reach the extent exactly
+    var clamped_target_scale = Math.max(extent[0], Math.min(extent[1], target_scale));
+    if (clamped_target_scale != target_scale){
+        target_scale = clamped_target_scale;
+        factor = target_scale / scale;
+    }
+
+    // Center each vector, stretch, then put back
+    x = (x - center[0]) * factor + center[0];
+    y = (y - center[1]) * factor + center[1];
+
+    // Transition to the new view over 350ms
+    d3.transition().duration(350).tween("zoom", function () {
+        var interpolate_scale = d3.interpolate(scale, target_scale),
+            interpolate_trans = d3.interpolate(translate, [x,y]);
+        return function (t) {
+            zoom.scale(interpolate_scale(t))
+                .translate(interpolate_trans(t));
+            zoomed();
+        };
+    });
+});
+//end of zoom button
+
+ //Draw Cities
+
+    var width = 940,
+          height = 550;
+
+    var projection = d3.geo.albersUsa()
+                       .scale(1100)
+                       .translate([width / 2, height / 2]);
+
+d3.csv("data/cities.csv", function(data) {
+g.selectAll("circle")
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx',function(d,i) {return projection([data[i].lon,data[i].lat])[0]})
+      .attr('cy',function(d,i) {return projection([data[i].lon,data[i].lat])[1]})
+      .attr('r',5)
+      .style('fill','#fc8d59')
+      .on("mouseover", function(d,i) {
+            tdiv.transition()        
+                .duration(200)      
+                .style("opacity", .9);
+            tdiv.html("<strong>"+data[i].city+"</strong>") 
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            })
+     .on("mouseout", function(d) {
+            tdiv.transition()        
+                .duration(200)       
+                .style("opacity", 0);   
+        })   
+ 	})
+
+}// end of ready
+
+
+} // end of drawmap
+
+//Draw rings
+
+var rw = 250,
+    rh = 150,
+    radius = Math.min(rw, rh) / 2,
+    spacing = .09;
+
+var arc = d3.svg.arc()
+		    .startAngle(0)
+		    .endAngle(function(d) { return d.value * 2 * Math.PI; })
+		    .innerRadius(function(d) { return d.index * radius; })
+		    .outerRadius(function(d) { return (d.index + spacing) * radius; });
+
+var svg = d3.select("#ringChart1").append("svg")
+    .attr("width", rw)
+    .attr("height", rh)
+  .append("g")
+    .attr("transform", "translate(" + rw / 2 + "," + rh / 2 + ")");
+
+var rVal = {Code: "56035", County_Name: "Sublette", Radial_1a: "100", Radial_1b: "65", Radial_1c: "20"}
+
+var field = svg.selectAll("g")
+               .data(fields(rVal))
+               .enter().append("g");
+
+field.append("path");
+
+var initiate = {id: 56035}
+tick(initiate,"")
+
+function tick(e,cName) {
+  //Add title
+  d3.select("text").remove();
+  d3.select("#title").append("text").text(cName).attr("class", "title")
+
+  var ringValues = radial.filter(function (el) {
+           return el.Code == e.id
+  });
+
+  rVal = ringValues[0]
+
+  field = field
+      .each(function(d) { this._value = d.value; })
+      .data(fields(rVal))
+      .each(function(d) { d.previousValue = this._value; });
+
+  field.select("path")
+        .on("mouseover", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tdiv .html(Math.round(d.value*100))  
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+     .on("mouseout", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", 0);
+        })
+    .transition()
+      .ease("elastic")
+      .attrTween("d", arcTween)
+      .style("fill", function(d) { return d.color; })
+
+}// end tick
+
+function fields(rVal) {
+  return [
+    {color: "teal",index: .7, value: rVal["Radial_1a"] / 100},
+    {color: "green",index: .6, value: rVal["Radial_1b"] / 100},
+    {color: "orange",index: .5, value: rVal["Radial_1c"] / 100},
+  ];
+}
+
+//Second Ring Chart
+
+var ringb = d3.select("#ringChart2").append("svg")
+    .attr("width", rw)
+    .attr("height", rh)
+  .append("g")
+    .attr("transform", "translate(" + rw / 2 + "," + rh / 2 + ")");
+
+var rValb = {Code: "56035", County_Name: "Sublette", Radial_2a: "100", Radial_2b: "65", Radial_2c: "20"}
+
+var fieldb = ringb.selectAll("g")
+               .data(fieldsb(rVal))
+               .enter().append("g");
+
+fieldb.append("path");
+
+var initiateb = {id: 56035}
+tickb(initiateb)
+
+function tickb(e) {
+
+  var ringValuesb = radial.filter(function (el) {
+           return el.Code == e.id
+  });
+
+  rValb = ringValuesb[0]
+
+  fieldb = fieldb
+      .each(function(d) { this._value = d.value; })
+      .data(fieldsb(rValb))
+      .each(function(d) { d.previousValue = this._value; });
+
+  fieldb.select("path").on("mouseover", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tdiv .html(Math.round(d.value*100))  
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+     .on("mouseout", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", 0);
+        })
+    .transition()
+      .ease("elastic")
+      .attrTween("d", arcTween)
+      .style("fill", function(d) { return d.color; })
+
+}// end tick
+
+function arcTween(d) {
+  var i = d3.interpolateNumber(d.previousValue, d.value);
+  return function(t) { d.value = i(t); return arc(d); };
+}
+
+function fieldsb(rValb) {
+  return [
+    {color: "teal",index: .7, value: rValb["Radial_2a"] / 100},
+    {color: "green",index: .6, value: rValb["Radial_2b"] / 100},
+    {color: "orange",index: .5, value: rValb["Radial_2c"] / 100},
+  ];
+}
+
+//Draw stacked bar
+
+var stwidth = 250,
+    stheight = 200
+
+var xR = d3.scale.ordinal()
+          .rangeRoundBands([0, 80], .4);
+
+var yR = d3.scale.linear()
+          .rangeRound([180, 0]);
+
+var color = d3.scale.ordinal()
+              .range(["teal",  "green", "orange"]);
+
+var xAxis = d3.svg.axis()
+    .scale(xR)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(yR)
+    .orient("left")
+
+var svg = d3.select("#stackedBar").append("svg")
+    .attr("width", stwidth+150 )
+    .attr("height", stheight )
+  .append("g")
+      .attr("transform", "translate(100,0)")
+
+   var stackBar = []
+   var row1 = {"row":"one","Radial_a":rVal["Radial_1a"],"Radial_b":rVal["Radial_1b"],"Radial_c":rVal["Radial_1c"]}
+   var row2 = {"row":"two","Radial_a":rVal["Radial_2a"],"Radial_b":rVal["Radial_2b"],"Radial_c":rVal["Radial_2c"]}
+
+   stackBar.push(row1,row2)
+
+   color.domain(d3.keys(stackBar[0]).filter(function(key) { return key !== "row" }))
+
+   stackBar.forEach(function(d) {
+     var y0 = 0;
+     d.percent = color.domain().map(function(name) { return {name: name, value:+d[name], y0: y0, y1: y0 += +d[name]}; });
+     d.total = d.percent[d.percent.length - 1].y1;
+   });
+
+   stackBar.sort(function(a, b) { return b.total - a.total; });
+
+   xR.domain(stackBar.map(function(d) { return d.row; }));
+   yR.domain([0, d3.max(stackBar, function(d) { return d.total; })]);
+
+   svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0,180)")
+      .call(xAxis);
+
+   svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+
+   var rectBar = svg.selectAll(".stacks")
+      .data(stackBar)
+    .enter().append("g")
+      .attr("class", "stacks")
+      .attr("transform", function(d) { return "translate(" + xR(d.row) + ",0)"; });
+
+  rectBar.selectAll("rect")
+      .data(function(d) { return d.percent; })
+    .enter().append("rect")
+     .on("mouseover", function(d) {
+     	   console.log(d)
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tdiv .html(d.value)  
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+     .on("mouseout", function(d) {
+            tdiv.transition()
+                .duration(200)
+                .style("opacity", 0);
+        })
+    .attr("class", "rect")
+      .attr("width", 20)
+      .attr("y", function(d) { return yR(d.y1); })
+      .attr("height", function(d) { return yR(d.y0) - yR(d.y1); })
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = svg.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(-120," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", stwidth - 18)
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", stwidth + 55)
+      .attr("y", 9)
+      .attr("dy", ".15em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+ function stack(d)
+ {
+
+   var stackBar = []
+   var row1 = {"row":"one","Radial_a":rVal["Radial_1a"],"Radial_b":rVal["Radial_1b"],"Radial_c":rVal["Radial_1c"]}
+   var row2 = {"row":"two","Radial_a":rVal["Radial_2a"],"Radial_b":rVal["Radial_2b"],"Radial_c":rVal["Radial_2c"]}
+
+    stackBar.push(row1,row2)
+
+    stackBar.forEach(function(d) {
+     var y0 = 0;
+     d.percent = color.domain().map(function(name) { return {name: name, value:+d[name], y0: y0, y1: y0 += +d[name]}; });
+     d.total = d.percent[d.percent.length - 1].y1;
+	   });
+
+   yR.domain([0, d3.max(stackBar, function(d) { return d.total; })]);
+
+   var barsToUpdate = d3.select("#stackedBar")
+
+
+             barsToUpdate.select(".y.axis").transition() // change the y axis
+               .duration(750)
+               .call(yAxis);
+
+    barsToUpdate.selectAll(".stacks")
+      .data(stackBar)
+    .selectAll(".rect")
+      .data(function(d) {return d.percent; })
+       .transition()
+       .duration(750)
+      .ease("elastic")
+      .attr("y", function(d) { return yR(d.y1); })
+      .attr("height", function(d) { return yR(d.y0) - yR(d.y1); })
+
+ }
+
+ })
+
+</script>

@@ -1,0 +1,104 @@
+{"children":[
+    {
+        "year":"1995",
+        "children":[
+            {
+                "type":"BTS",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":50},{"name":"Misses Bottoms","value":30},{"name":"Misses Dresses","value":15},{"name":"Misses Active","value":35},{"name":"Womens Petite","value":7},{"name":"Womens Plus","value":12},{"name":"Maternity","value":1},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":10},{"name":"Accessories","value":20}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":20},{"name":"Mens Basics","value":30},{"name":"Mens Dress","value":10},{"name":"Young Mens","value":40}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":95},{"name":"Girls","value":85},{"name":"Infant and Toddler","value":20}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":80}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":20},{"name":"Housewares","value":15},{"name":"Home Textiles","value":20},{"name":"Backpacks and Luggage","value":25}]}
+                ]
+           }, {
+                "type":"Holiday",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":40},{"name":"Misses Bottoms","value":21},{"name":"Misses Dresses","value":25},{"name":"Misses Active","value":30},{"name":"Womens Petite","value":12},{"name":"Womens Plus","value":17},{"name":"Maternity","value":5},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":42},{"name":"Accessories","value":37}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":15},{"name":"Mens Basics","value":35},{"name":"Mens Dress","value":20},{"name":"Young Mens","value":20}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":43},{"name":"Girls","value":47},{"name":"Infant and Toddler","value":5}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":40}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":45},{"name":"Housewares","value":25},{"name":"Home Textiles","value":30},{"name":"Backpacks and Luggage","value":5}]}
+                ]
+           }
+        ]
+   },{
+        "year":"1999",
+        "children":[
+            {
+                "type":"BTS",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":50},{"name":"Misses Bottoms","value":30},{"name":"Misses Dresses","value":15},{"name":"Misses Active","value":35},{"name":"Womens Petite","value":7},{"name":"Womens Plus","value":12},{"name":"Maternity","value":1},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":10},{"name":"Accessories","value":20}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":20},{"name":"Mens Basics","value":30},{"name":"Mens Dress","value":10},{"name":"Young Mens","value":40}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":95},{"name":"Girls","value":85},{"name":"Infant and Toddler","value":20}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":80}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":20},{"name":"Housewares","value":15},{"name":"Home Textiles","value":20},{"name":"Backpacks and Luggage","value":25}]}
+                ]
+           }, {
+                "type":"Holiday",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":40},{"name":"Misses Bottoms","value":21},{"name":"Misses Dresses","value":25},{"name":"Misses Active","value":30},{"name":"Womens Petite","value":12},{"name":"Womens Plus","value":17},{"name":"Maternity","value":5},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":42},{"name":"Accessories","value":37}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":15},{"name":"Mens Basics","value":35},{"name":"Mens Dress","value":20},{"name":"Young Mens","value":20}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":43},{"name":"Girls","value":47},{"name":"Infant and Toddler","value":5}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":40}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":45},{"name":"Housewares","value":25},{"name":"Home Textiles","value":30},{"name":"Backpacks and Luggage","value":5}]}
+                ]
+           }
+        ]
+   },{
+        "year":"2007",
+        "children":[
+            {
+                "type":"BTS",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":50},{"name":"Misses Bottoms","value":30},{"name":"Misses Dresses","value":15},{"name":"Misses Active","value":35},{"name":"Womens Petite","value":7},{"name":"Womens Plus","value":12},{"name":"Maternity","value":1},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":10},{"name":"Accessories","value":20}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":20},{"name":"Mens Basics","value":30},{"name":"Mens Dress","value":10},{"name":"Young Mens","value":40}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":95},{"name":"Girls","value":85},{"name":"Infant and Toddler","value":20}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":80}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":20},{"name":"Housewares","value":15},{"name":"Home Textiles","value":20},{"name":"Backpacks and Luggage","value":25}]}
+                ]
+           }, {
+                "type":"Holiday",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":40},{"name":"Misses Bottoms","value":21},{"name":"Misses Dresses","value":25},{"name":"Misses Active","value":30},{"name":"Womens Petite","value":12},{"name":"Womens Plus","value":17},{"name":"Maternity","value":5},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":42},{"name":"Accessories","value":37}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":15},{"name":"Mens Basics","value":35},{"name":"Mens Dress","value":20},{"name":"Young Mens","value":20}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":43},{"name":"Girls","value":47},{"name":"Infant and Toddler","value":5}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":40}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":45},{"name":"Housewares","value":25},{"name":"Home Textiles","value":30},{"name":"Backpacks and Luggage","value":5}]}
+                ]
+           }
+        ]
+   },{
+        "year":"2015",
+        "children":[
+            {
+                "type":"BTS",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":50},{"name":"Misses Bottoms","value":30},{"name":"Misses Dresses","value":15},{"name":"Misses Active","value":35},{"name":"Womens Petite","value":7},{"name":"Womens Plus","value":12},{"name":"Maternity","value":1},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":10},{"name":"Accessories","value":20}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":20},{"name":"Mens Basics","value":30},{"name":"Mens Dress","value":10},{"name":"Young Mens","value":40}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":95},{"name":"Girls","value":85},{"name":"Infant and Toddler","value":20}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":80}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":20},{"name":"Housewares","value":15},{"name":"Home Textiles","value":20},{"name":"Backpacks and Luggage","value":25}]}
+                ]
+           }, {
+                "type":"Holiday",
+                "children":[
+                    {"name":"Womens","children":[{"name":"Misses Tops","value":40},{"name":"Misses Bottoms","value":21},{"name":"Misses Dresses","value":25},{"name":"Misses Active","value":30},{"name":"Womens Petite","value":12},{"name":"Womens Plus","value":17},{"name":"Maternity","value":5},{"name":"Womens Seasonal","value":1},{"name":"Intimates","value":60},{"name":"Juniors","value":80}]},
+                    {"name":"Accessories and Jewelry","children":[{"name":"Jewelry","value":42},{"name":"Accessories","value":37}]},
+                    {"name":"Mens","children":[{"name":"Mens Active","value":15},{"name":"Mens Basics","value":35},{"name":"Mens Dress","value":20},{"name":"Young Mens","value":20}]},
+                    {"name":"Childrens","children":[{"name":"Boys","value":43},{"name":"Girls","value":47},{"name":"Infant and Toddler","value":5}]},
+                    {"name":"Footwear","children":[{"name":"Dress Casual Shoes","value":60},{"name":"Athletic Shoes","value":40}]},
+                    {"name":"Home","children":[{"name":"Small Appliances","value":45},{"name":"Housewares","value":25},{"name":"Home Textiles","value":30},{"name":"Backpacks and Luggage","value":5}]}
+                ]
+           }
+        ]
+   }
+]
+}

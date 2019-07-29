@@ -1,0 +1,19 @@
+.axis .domain {
+    display: none;
+}
+
+.axis line {
+    stroke: #ccc;
+}
+
+.axis.x0 text {
+    font-weight: 700;
+}
+
+.hover-active rect {
+    opacity: .75;
+}
+
+.hover-active rect.hover {
+    opacity: 1;
+}
